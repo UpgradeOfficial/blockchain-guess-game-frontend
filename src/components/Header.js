@@ -1,15 +1,14 @@
-import React from 'react'
-import { ConnectButton } from 'web3uikit'
+import React from "react";
+import { ConnectButton, Link } from "web3uikit";
 const Header = () => {
   return (
-    
-      <nav className="p-5 border-b-2 flex flex-row ">
-          <h1 className="py-4 px-4 font-bold text-3xl sm:text-xs"> Decentralized Game</h1>
-          <div className="ml-auto py-2 px-4">
-              <ConnectButton moralisAuth={false}/>
-          </div>
-      </nav>
-  )
-}
+    <nav className="p-5 border-b-2 flex flex-col justify-between items-center sm:flex-row">
+      <h1 className="py-4 px-4 font-bold text-3xl">Guess Game</h1>
+      <div className="flex flex-row items-center">
+        <ConnectButton moralisAuth={false} />
+      </div>
+    </nav>
+  );
+};
 
-export default Header
+export default Header;
