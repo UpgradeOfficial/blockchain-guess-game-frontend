@@ -4,7 +4,8 @@ module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin({
-			excludeAliases: ['console'],
+			//excludeAliases: ['console'],
+			includeAliases: ['console']
 		  })
 	]
 };

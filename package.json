@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-smartcontract-lottery-fcc",
+  "name": "guess-game-smart-contract",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
