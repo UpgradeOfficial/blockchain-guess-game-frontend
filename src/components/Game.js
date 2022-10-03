@@ -28,7 +28,7 @@ const Game = () => {
   const [gameStateInput, setGameStateInput] = useState(0);
   const dispatch = useNotification();
 
-  console.log("game State input: ",gameStateInput)
+
 
   //   const { runContractFunction: enterRaffle } = useWeb3Contract({
   //     abi: abi,
