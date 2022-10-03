@@ -6,7 +6,7 @@ import Header from "./components/Header";
 // import ManualHeader from './components/ManualHeader';
 // the below can be used to control the head file
 // import { Helmet } from "react-helmet";
-const supportedChains = ["31337", "4"];
+const supportedChains = ["31337", "5"];
 function App() {
   const { isWeb3Enabled, chainId } = useMoralis();
   return (
