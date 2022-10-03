@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GameInfoStatisticItem from "./GameInfoStatisticItem";
 import GameInput from "./GameInput";
+import SettingsInput from "./SettingsInput";
 
 const GameInfo = ({
   owner,
@@ -13,17 +14,18 @@ const GameInfo = ({
   latestAnswer,
   recentGuess,
   isOwner,
+  handleSuccess,
   gameBalance,
   gameState,
 }) => {
   const gameStatisticsDatas = [
     {
-        data: owner,
-        text: "Owner"
+      data: owner,
+      text: "Owner",
     },
     {
-        data: guessRange,
-        text: "Guess Range"
+      data: guessRange,
+      text: "Guess Range",
     },
   ];
   const [settingsState, setSettingsState] = useState(false);
@@ -37,6 +39,14 @@ const GameInfo = ({
     setSettingsState(false);
     setStatisticsState(true);
   };
+  const handleOptions = (e) => {
+      const value = e.target.value
+      if (value === "Settings"){
+        handleSettingState()
+      }else{
+        handleStatisticState()
+      }
+  };
   return (
     <div className="w-full bg-white rounded-lg pt-2 border shadow-md dark:bg-gray-800 dark:border-gray-700">
       <div className="sm:hidden">
@@ -45,12 +55,13 @@ const GameInfo = ({
         </label>
         <select
           id="tabs"
+          onClick={(e)=>handleOptions(e)}
           className="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 sm:text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option onClick={handleStatisticState}>Statistics</option>
+          <option >Statistics</option>
           {isOwner ? (
             <>
-              <option onClick={handleSettingState}>Settings</option>
+              <option >Settings</option>
             </>
           ) : (
             <></>
@@ -111,101 +122,46 @@ const GameInfo = ({
           aria-labelledby="stats-tab"
         >
           <dl className="grid grid-cols-1 gap-8 p-4 mx-auto max-w-screen-xl text-gray-900 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
-            {/* gameStatisticsDatas.map(({data, text}) => (
-                <GameInfoStatisticItem data={data} text={text} />
-            )) */}
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {owner.slice(0, 6)}...
-                {owner.slice(owner.length - 4)}
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Owner
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {" "}
-                0 - {guessRange}
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Guess Range
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {entranceFee} Wei
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Entrance Fee
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {recentPlayer.slice(0, 6)}...
-                {recentPlayer.slice(recentPlayer.length - 4)}
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Recent Player
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">{lenghtPlayer}</dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Games Played
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {recentWinner.slice(0, 6)}...
-                {recentWinner.slice(recentWinner.length - 4)}
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Recent Winner
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">{lenghtWinner}</dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Games Won
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">{recentGuess}</dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Last Guess
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">{latestAnswer}</dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Last Answer
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {isOwner ? "true" : "false"}
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                isOwner?
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {gameBalance} Wei
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Game Balance
-              </dd>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <dt className="mb-2 text-3xl font-extrabold">
-                {gameState? "Pending": "Open"} 
-              </dt>
-              <dd className="font-light text-gray-500 dark:text-gray-400">
-                Game State
-              </dd>
-            </div>
+            <GameInfoStatisticItem
+              data={`${owner.slice(0, 6)}...${owner.slice(owner.length - 4)}`}
+              text="Owner"
+            />
+            <GameInfoStatisticItem
+              data={` 0 - ${guessRange}`}
+              text="Guess Range"
+            />
+            <GameInfoStatisticItem
+              data={`${entranceFee} Wei`}
+              text="Entrance Fee"
+            />
+            <GameInfoStatisticItem
+              data={`${recentPlayer.slice(0, 6)}...${recentPlayer.slice(
+                recentPlayer.length - 4
+              )}`}
+              text="Recent Player"
+            />
+            <GameInfoStatisticItem data={lenghtPlayer} text="Games Played" />
+            <GameInfoStatisticItem
+              data={`${recentWinner.slice(0, 6)}...${recentWinner.slice(
+                recentWinner.length - 4
+              )}`}
+              text="Recent Winner"
+            />
+            <GameInfoStatisticItem data={lenghtWinner} text="Games Won" />
+            <GameInfoStatisticItem data={recentGuess} text="Last Guess" />
+            <GameInfoStatisticItem data={latestAnswer} text="Last Answer" />
+            <GameInfoStatisticItem
+              data={isOwner ? "true" : "false"}
+              text="isOwner?"
+            />
+            <GameInfoStatisticItem
+              data={`${gameBalance} Wei`}
+              text="Game Balance"
+            />
+            <GameInfoStatisticItem
+              data={gameState ? "Pending" : "Open"}
+              text="Game State"
+            />
           </dl>
         </div>
         <div
@@ -223,8 +179,9 @@ const GameInfo = ({
           </h2>
           {/* <!-- List --> */}
           <ul role="list" class="space-y-4 text-gray-500 dark:text-gray-400">
-            <GameInput />
-            <GameInput />
+            <SettingsInput functionName="setEntranceFee"  handleSuccess={handleSuccess} name="Set Entrance Fee" />
+            <SettingsInput functionName="setGuessRange" handleSuccess={handleSuccess} name="Set Game Range" />
+          
           </ul>
         </div>
       </div>

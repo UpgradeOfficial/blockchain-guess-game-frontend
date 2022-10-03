@@ -7,6 +7,7 @@ const Header = () => {
       <div className="flex flex-row items-center">
         <ConnectButton moralisAuth={false} />
       </div>
+      
     </nav>
   );
 };

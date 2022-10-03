@@ -25,7 +25,10 @@ const Game = () => {
   const [recentGuess, setRecentGuess] = useState("");
   const [gameBalance, setGameBalance] = useState("");
   const [gameState, setGameState] = useState(0);
+  const [gameStateInput, setGameStateInput] = useState(0);
   const dispatch = useNotification();
+
+  console.log("game State input: ",gameStateInput)
 
   //   const { runContractFunction: enterRaffle } = useWeb3Contract({
   //     abi: abi,
@@ -95,6 +98,7 @@ const Game = () => {
     functionName: "getLatestAnswer",
     params: {},
   });
+  
 
   // const { runContractFunction: getGuessRange } = useWeb3Contract({
   //   abi: abi,
@@ -158,7 +162,18 @@ const Game = () => {
             GuessGameAddress={GuessGameAddress}
             abi={abi}
             guessRange={guessRange}
+            functionName="hackableGuess"
             handleSuccess={handleSuccess}
+            title="Your Guess (Hackable)"
+          />
+          <GameInput
+            entranceFee={entranceFee}
+            GuessGameAddress={GuessGameAddress}
+            abi={abi}
+            functionName="unhackableGuess"
+            guessRange={guessRange}
+            handleSuccess={handleSuccess}
+            title="Your Guess (UnHackable)"
           />
           <GameInfo
             owner={owner}
@@ -172,6 +187,7 @@ const Game = () => {
             recentGuess={recentGuess}
             gameBalance={gameBalance}
             gameState={gameState}
+            handleSuccess={handleSuccess}
             isOwner = {account.toLowerCase() === owner.toLowerCase()}
             
           />
@@ -186,6 +202,25 @@ const Game = () => {
           For changes and features{" "}
         </div>
       )}
+
+      {isOwner ? (<div className="pt-3">
+        <label
+        for="default-toggle"
+        className="inline-flex relative items-center cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          onClick={(e)=> setGameStateInput(e.target.value)}
+          value={0}
+          id="default-toggle"
+          className="sr-only peer"
+        />
+        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Game State
+        </span>
+      </label>
+      </div>):(<></>)}
     </>
   );
 };
