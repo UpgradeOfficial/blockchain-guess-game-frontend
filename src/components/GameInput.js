@@ -1,6 +1,6 @@
 import React, { useState} from "react";
-import {  useWeb3Contract } from "react-moralis";
-
+import { useWeb3Contract } from "react-moralis";
+import {console} from "console-browserify"
 const GameInput = ({
   entranceFee,
   GuessGameAddress,

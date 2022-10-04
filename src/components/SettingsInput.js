@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { abi, contractAddresses } from "../utils/constants";
-
+import {console} from "console-browserify"
 const SettingsInput = ({ functionName,  handleSuccess, name }) => {
   const { chainId: chainIdHex} = useMoralis();
   const chainId = parseInt(chainIdHex);
