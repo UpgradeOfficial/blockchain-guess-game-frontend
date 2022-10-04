@@ -175,6 +175,11 @@ const Game = () => {
             handleSuccess={handleSuccess}
             title="Your Guess (UnHackable)"
           />
+          <span>The unhackable game could fail for a number of reason, </span>
+          <span>1. No subscription Fund in the Oracle (VRF chainlink) </span>
+          <span>2. Gas Price is higher and has exceed the gas limit </span>
+          <span>3. The game is locking in pending mode. Which can be opened by owner </span>
+          <span>You could try out the hackable that will always be up and try to hack it (if you can)</span>
           <GameInfo
             owner={owner}
             guessRange={guessRange}
@@ -203,7 +208,7 @@ const Game = () => {
         </div>
       )}
 
-      {isOwner ? (<div className="pt-3">
+      {/* {isOwner ? (<div className="pt-3">
         <label
         for="default-toggle"
         className="inline-flex relative items-center cursor-pointer"
@@ -220,7 +225,7 @@ const Game = () => {
           Game State
         </span>
       </label>
-      </div>):(<></>)}
+      </div>):(<></>)} */}
     </>
   );
 };

@@ -155,7 +155,7 @@ const GameInfo = ({
               text="isOwner?"
             />
             <GameInfoStatisticItem
-              data={`${gameBalance} Wei`}
+              data={`${Number(gameBalance).toExponential()} Wei`}
               text="Game Balance"
             />
             <GameInfoStatisticItem

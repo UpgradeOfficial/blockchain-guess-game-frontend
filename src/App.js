@@ -25,7 +25,7 @@ function App() {
           )}
         </div>
       ) : (
-        <div>Please connect to a Wallet</div>
+        <div className="text-center text-lg">Please connect to a Wallet. Have Problem. Click the number <a href="https://wa.me/%2B2347068448786?text=Hi%20Odeyemi%20Increase%20Ayobami.%20Tried%20out%20your%20game%2C%20having%20some%20slight%20difficulty.%20Can%20you%20be%20of%20any%20assistance%3F">07068448786</a> to chat me up</div>
       )}
     </>
   );
