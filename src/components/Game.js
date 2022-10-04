@@ -10,9 +10,11 @@ const Game = () => {
   const userAddress = Moralis.User.Address;
   const chainId = parseInt(chainIdHex);
   const GuessGameAddress =
-    chainId in contractAddresses ? contractAddresses[chainId][0] : null;
+    chainId in contractAddresses
+      ? contractAddresses[chainId][contractAddresses[chainId].length - 1]
+      : null;
 
-  const   runContractOptions = {abi, contractAddress: GuessGameAddress}
+  const runContractOptions = { abi, contractAddress: GuessGameAddress };
 
   const [guessRange, setGuessRange] = useState("0");
   const [owner, setOwner] = useState("");
@@ -27,8 +29,6 @@ const Game = () => {
   const [gameState, setGameState] = useState(0);
   const [gameStateInput, setGameStateInput] = useState(0);
   const dispatch = useNotification();
-
-
 
   //   const { runContractFunction: enterRaffle } = useWeb3Contract({
   //     abi: abi,
@@ -54,7 +54,7 @@ const Game = () => {
     params: { _player: owner },
   });
   const { runContractFunction: getEntranceFee } = useWeb3Contract({
-    ...runContractOptions,// specify the networkId
+    ...runContractOptions, // specify the networkId
     functionName: "getEntranceFee",
     params: {},
   });
@@ -98,7 +98,6 @@ const Game = () => {
     functionName: "getLatestAnswer",
     params: {},
   });
-  
 
   // const { runContractFunction: getGuessRange } = useWeb3Contract({
   //   abi: abi,
@@ -129,7 +128,6 @@ const Game = () => {
     setGameState(getGameStateFromCall);
     const getRecentGuessFromCall = (await getRecentGuess()).toString();
     setRecentGuess(getRecentGuessFromCall);
-    
   }
 
   const handleNewNotification = () => {
@@ -175,11 +173,25 @@ const Game = () => {
             handleSuccess={handleSuccess}
             title="Your Guess (UnHackable)"
           />
-          <span>The unhackable game could fail for a number of reason, </span>
+          {/* <span>The unhackable game could fail for a number of reason, </span>
           <span>1. No subscription Fund in the Oracle (VRF chainlink) </span>
           <span>2. Gas Price is higher and has exceed the gas limit </span>
           <span>3. The game is locking in pending mode. Which can be opened by owner </span>
-          <span>You could try out the hackable that will always be up and try to hack it (if you can)</span>
+          <span>You could try out the hackable that will always be up and try to hack it (if you can)</span> */}
+          <div className="flex flex-col justify-center">
+          <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+          The unhackable input could fail for a number of reason:
+          </h2>
+          <ul class="space-y-1 max-w-md list-disc list-inside flex flex-col justify-center text-gray-500 dark:text-gray-400">
+            <li>No subscription Fund in the Oracle (VRF chainlink)</li>
+            <li>Callback gas limit set too low</li>
+            <li>The game is locked in pending mode. Which can ONLY be opened by owner of contract</li>
+            <li>You could try out the hackable input, that will always be up and try to hack it (if you can, I dear you)</li>
+            <li>For the unhackable input it may take up to 2 minutes to get an answer from the ORACLE(VRF ChainLink) so be patient. </li>
+          </ul>
+
+          </div>
+          
           <GameInfo
             owner={owner}
             guessRange={guessRange}
@@ -193,8 +205,7 @@ const Game = () => {
             gameBalance={gameBalance}
             gameState={gameState}
             handleSuccess={handleSuccess}
-            isOwner = {account.toLowerCase() === owner.toLowerCase()}
-            
+            isOwner={account.toLowerCase() === owner.toLowerCase()}
           />
         </>
       ) : (

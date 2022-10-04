@@ -6,7 +6,7 @@ const SettingsInput = ({ functionName,  handleSuccess, name }) => {
   const { chainId: chainIdHex} = useMoralis();
   const chainId = parseInt(chainIdHex);
   const GuessGameAddress =
-    chainId in contractAddresses ? contractAddresses[chainId][0] : null;
+    chainId in contractAddresses ? contractAddresses[chainId][contractAddresses[chainId].length-1] : null;
 
   const runContractOptions = { abi, contractAddress: GuessGameAddress };
   const [input, setInput] = useState("");
